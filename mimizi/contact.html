@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact page - Get in touch, send a message, or find answers to common questions.">
+    <title>Contact Me | Personal Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111827; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        .navbar-blur { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
+        .navbar-scrolled { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 8px rgba(30,58,138,0.07); }
+        .link { transition: color 0.2s; }
+        .link:hover, .active-link { color: #1E3A8A !important; font-weight: 700; }
+        .fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: none; } }
+        .contact-title { font-size: 2.5rem; font-family: 'Montserrat', sans-serif; font-weight: 900; color: #111827; }
+        .contact-subtitle { font-size: 1.25rem; font-family: 'Inter', sans-serif; color: #4B5563; margin-top: 1rem; }
+        .contact-section { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: flex; gap: 2rem; }
+        .contact-card, .form-card { background: #fff; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 2rem; display: flex; flex-direction: column; gap: 2rem; min-width: 0; }
+        .contact-card { flex: 1 1 320px; max-width: 350px; align-items: flex-start; }
+        .form-card { flex: 2 1 480px; max-width: 600px; }
+        .contact-info-item { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: #4B5563; margin-bottom: 1.2rem; }
+        .contact-info-item i { color: #1E3A8A; font-size: 1.2rem; }
+        .form-label { font-size: 1rem; font-weight: 600; color: #111827; margin-bottom: 0.3rem; }
+        .form-input, .form-textarea { width: 100%; border: 1.5px solid #E5E7EB; border-radius: 0.375rem; padding: 0.75rem 1rem; font-size: 1rem; color: #111827; background: #fff; transition: border 0.2s; margin-bottom: 0.5rem; }
+        .form-input:focus, .form-textarea:focus { border-color: #1E3A8A; outline: none; }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .form-checkbox { accent-color: #1E3A8A; margin-right: 0.5rem; }
+        .form-checkbox-label { font-size: 0.98rem; color: #4B5563; }
+        .form-error { color: #dc2626; font-size: 0.95rem; margin-bottom: 0.5rem; opacity: 0; transition: opacity 0.3s; }
+        .form-error.active { opacity: 1; animation: fadeIn 0.4s; }
+        .form-success { color: #22c55e; font-size: 1rem; margin-bottom: 0.5rem; opacity: 0; transition: opacity 0.3s; text-align: center; }
+        .form-success.active { opacity: 1; animation: fadeIn 0.4s; }
+        .send-btn { background: #1E3A8A; color: #fff; border-radius: 0.375rem; padding: 0.85rem 2.2rem; font-weight: 700; font-size: 1rem; border: none; transition: background 0.3s, box-shadow 0.2s; box-shadow: 0 2px 8px rgba(30,58,138,0.08); cursor: pointer; margin-top: 0.5rem; }
+        .send-btn:hover, .send-btn:focus { background: #2563eb; }
+        .send-btn:active { transform: scale(0.97); }
+        .faq-section { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        .faq-title { font-size: 2rem; font-family: 'Montserrat', sans-serif; font-weight: 800; color: #111827; margin-bottom: 2rem; text-align: center; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .faq-card { background: #fff; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem 1.5rem 1.2rem 1.5rem; }
+        .faq-q { font-size: 1.1rem; font-weight: 700; color: #1E3A8A; margin-bottom: 0.7rem; }
+        .faq-a { color: #4B5563; font-size: 1rem; }
+        @media (max-width: 1024px) {
+            .contact-section, .faq-section { max-width: 98vw; }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .contact-section { flex-direction: column; gap: 1.2rem; padding: 1rem 0.5rem; }
+            .contact-card, .form-card { max-width: 100%; padding: 1.2rem; }
+            .faq-section { padding: 1.2rem 0.5rem; }
+            .faq-title { font-size: 1.3rem; }
+        }
+        @media (max-width: 640px) {
+            .contact-title { font-size: 1.5rem; }
+            .contact-subtitle { font-size: 1rem; }
+            .faq-title { font-size: 1.1rem; }
+        }
+        .focus-outline:focus { outline: 2px solid #1E3A8A; outline-offset: 2px; }
+    </style>
+</head>
+<body class="bg-white text-neutral-900">
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300" id="navbar">
+        <nav class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 text-primary-700 font-extrabold text-xl">
+                <img src="assets/logo.svg" alt="Logo" class="h-8 w-8" loading="lazy">
+                DevName
+            </a>
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex flex-1 justify-center gap-8 text-base font-medium">
+                <li><a href="index.html" class="link">Home</a></li>
+                <li><a href="about.html" class="link">About</a></li>
+                <li><a href="projects.html" class="link">Projects</a></li>
+                <li><a href="blog.html" class="link">Blog</a></li>
+                <li><a href="contact.html" class="link active-link" aria-current="page">Contact</a></li>
+            </ul>
+            <!-- Hamburger -->
+            <button id="menu-btn" class="md:hidden text-2xl text-primary-700 focus:outline-none" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 text-xl font-semibold hidden">
+            <button id="close-menu" class="absolute top-6 right-8 text-3xl text-primary-700" aria-label="Close menu"><i class="fas fa-times"></i></button>
+            <a href="index.html" class="link">Home</a>
+            <a href="about.html" class="link">About</a>
+            <a href="projects.html" class="link">Projects</a>
+            <a href="blog.html" class="link">Blog</a>
+            <a href="contact.html" class="link active-link" aria-current="page">Contact</a>
+        </div>
+    </header>
+
+    <!-- Header Section -->
+    <section class="pt-28 pb-10 text-center fade-in">
+        <h1 class="contact-title">Contact Me</h1>
+        <p class="contact-subtitle">Feel free to reach out for project collaboration, questions, or just to say hello. I will get back to you as soon as possible.</p>
+    </section>
+
+    <!-- Contact & Form Section -->
+    <section class="contact-section fade-in" aria-label="Contact form and information">
+        <!-- Contact Info Card -->
+        <div class="contact-card" aria-label="Contact information">
+            <div class="contact-info-item"><i class="fas fa-envelope"></i> contact@example.com</div>
+            <div class="contact-info-item"><i class="fas fa-phone"></i> +1 (234) 567-890</div>
+            <div class="contact-info-item"><i class="fas fa-map-marker-alt"></i> Beijing, China</div>
+        </div>
+        <!-- Form Card -->
+        <form class="form-card" id="contactForm" autocomplete="off" novalidate aria-label="Contact form">
+            <div>
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" class="form-input focus-outline" placeholder="Your name" required aria-required="true" aria-label="Name">
+                <div class="form-error" id="nameError" aria-live="polite"></div>
+            </div>
+            <div>
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-input focus-outline" placeholder="Your email" required aria-required="true" aria-label="Email">
+                <div class="form-error" id="emailError" aria-live="polite"></div>
+            </div>
+            <div>
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-input focus-outline" placeholder="Message subject" required aria-required="true" aria-label="Subject">
+                <div class="form-error" id="subjectError" aria-live="polite"></div>
+            </div>
+            <div>
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" class="form-textarea focus-outline" placeholder="Your message" required aria-required="true" aria-label="Message"></textarea>
+                <div class="form-error" id="messageError" aria-live="polite"></div>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="checkbox" id="privacy" name="privacy" class="form-checkbox focus-outline" required aria-required="true" aria-label="Privacy policy">
+                <label for="privacy" class="form-checkbox-label">I agree to the website's privacy policy</label>
+            </div>
+            <div class="form-error" id="privacyError" aria-live="polite"></div>
+            <button type="submit" class="send-btn focus-outline" id="sendBtn" aria-label="Send message">Send Message</button>
+            <div class="form-success" id="formSuccess" aria-live="polite"></div>
+        </form>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section fade-in" aria-label="Frequently Asked Questions">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-card">
+                <div class="faq-q">1. How soon will I get a reply?</div>
+                <div class="faq-a">I usually respond to messages within 1-2 business days.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q">2. Can I request a custom project?</div>
+                <div class="faq-a">Absolutely! Please describe your project needs in the message form, and I'll get in touch to discuss details.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q">3. What information should I include in my message?</div>
+                <div class="faq-a">Please include your name, contact details, and a clear description of your inquiry or project idea.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q">4. Is my information safe?</div>
+                <div class="faq-a">Yes, your information is kept confidential and used only to respond to your inquiry.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-900 text-white py-12 mt-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Contact Info -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Contact</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><i class="fas fa-envelope mr-2"></i> email@example.com</li>
+                    <li><i class="fas fa-phone mr-2"></i> +1 234 567 8901</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> City, Country</li>
+                </ul>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><a href="index.html" class="hover:text-primary-400 transition">Home</a></li>
+                    <li><a href="about.html" class="hover:text-primary-400 transition">About</a></li>
+                    <li><a href="projects.html" class="hover:text-primary-400 transition">Projects</a></li>
+                    <li><a href="blog.html" class="hover:text-primary-400 transition">Blog</a></li>
+                </ul>
+            </div>
+            <!-- Social Media -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-neutral-400 mt-10 text-sm">
+            &copy; 2024 DevName. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 20) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+        // Mobile menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        // Form validation and async submit
+        const form = document.getElementById('contactForm');
+        const sendBtn = document.getElementById('sendBtn');
+        const formSuccess = document.getElementById('formSuccess');
+        const fields = [
+            { id: 'name', error: 'nameError', validate: v => v.trim().length > 0, msg: 'Name is required.' },
+            { id: 'email', error: 'emailError', validate: v => /^\S+@\S+\.\S+$/.test(v), msg: 'Valid email is required.' },
+            { id: 'subject', error: 'subjectError', validate: v => v.trim().length > 0, msg: 'Subject is required.' },
+            { id: 'message', error: 'messageError', validate: v => v.trim().length > 0, msg: 'Message is required.' },
+        ];
+        function showError(id, msg) {
+            const el = document.getElementById(id);
+            el.textContent = msg;
+            el.classList.add('active');
+            el.setAttribute('aria-live', 'assertive');
+        }
+        function hideError(id) {
+            const el = document.getElementById(id);
+            el.textContent = '';
+            el.classList.remove('active');
+            el.setAttribute('aria-live', 'polite');
+        }
+        function validateField(field) {
+            const value = document.getElementById(field.id).value;
+            if (!field.validate(value)) {
+                showError(field.error, field.msg);
+                return false;
+            } else {
+                hideError(field.error);
+                return true;
+            }
+        }
+        function validateForm() {
+            let valid = true;
+            fields.forEach(f => { if (!validateField(f)) valid = false; });
+            const privacy = document.getElementById('privacy');
+            if (!privacy.checked) {
+                showError('privacyError', 'You must agree to the privacy policy.');
+                valid = false;
+            } else {
+                hideError('privacyError');
+            }
+            return valid;
+        }
+        fields.forEach(f => {
+            const input = document.getElementById(f.id);
+            input.addEventListener('input', () => validateField(f));
+            input.addEventListener('blur', () => validateField(f));
+        });
+        document.getElementById('privacy').addEventListener('change', () => {
+            if(document.getElementById('privacy').checked) hideError('privacyError');
+        });
+        let debounceTimer = null;
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!validateForm()) return;
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+            formSuccess.classList.remove('active');
+            // Simulate async submit
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send Message';
+                formSuccess.textContent = 'Your message has been sent successfully!';
+                formSuccess.classList.add('active');
+                form.reset();
+                setTimeout(() => formSuccess.classList.remove('active'), 3500);
+            }, 1200);
+        });
+    </script>
+</body>
+</html> 

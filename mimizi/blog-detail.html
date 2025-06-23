@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog Article Detail - In-depth technical article with code, images, and best practices.">
+  <title>How to Build Scalable React Apps | Blog | Personal Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts & Fira Code -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Prism.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111827; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+    .navbar-blur { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
+    .navbar-scrolled { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 8px rgba(30,58,138,0.07); }
+    .link { transition: color 0.2s; }
+    .link:hover, .active-link { color: #3B82F6 !important; font-weight: 700; }
+    .fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: none; } }
+    .back-btn { color: #3B82F6; font-weight: 600; transition: color 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .back-btn:hover, .back-btn:focus { color: #1E3A8A; text-decoration: underline; }
+    .article-header { max-width: 800px; margin: 0 auto; padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .article-title { font-size: 2.5rem; font-weight: 900; color: #111827; margin-bottom: 1.2rem; }
+    .article-meta { color: #6B7280; font-size: 1rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+    .article-stats { display: flex; align-items: center; gap: 1.2rem; color: #6B7280; font-size: 1rem; }
+    .article-stats i { margin-right: 0.3rem; }
+    .feature-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 12px rgba(30,58,138,0.07); margin-bottom: 2.5rem; background: #18181b; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+    .feature-img:hover, .feature-img:focus { transform: scale(1.03); box-shadow: 0 8px 32px rgba(30,58,138,0.13); }
+    .article-content { max-width: 800px; margin: 0 auto; color: #111827; line-height: 1.6; font-size: 1.08rem; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content ul, .article-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+    .article-content code, .article-content pre { font-family: 'Fira Code', 'Consolas', 'Menlo', monospace; }
+    .article-content pre { background: #1E293B; color: #E2E8F0; border-radius: 6px; padding: 1rem; margin-bottom: 2rem; overflow-x: auto; position: relative; }
+    .article-content pre code { background: none; color: inherit; font-size: 1rem; }
+    .copy-btn { position: absolute; top: 1rem; right: 1rem; background: #334155; color: #E2E8F0; border: none; border-radius: 4px; padding: 0.3rem 0.8rem; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; z-index: 2; }
+    .copy-btn:hover, .copy-btn:focus { background: #3B82F6; color: #fff; }
+    .copy-success { position: absolute; top: 1rem; right: 5.5rem; background: #22c55e; color: #fff; border-radius: 4px; padding: 0.2rem 0.7rem; font-size: 0.95rem; z-index: 2; opacity: 0.95; }
+    .article-content pre::-webkit-scrollbar { height: 8px; background: #1E293B; }
+    .article-content pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .article-content pre::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+    .article-content .subtitle { font-size: 1.5rem; font-weight: 700; color: #111827; margin: 2.5rem 0 1.2rem 0; display: flex; align-items: center; gap: 0.7rem; }
+    .article-content .subtitle-number { font-size: 1.3rem; font-weight: 900; color: #3B82F6; margin-right: 0.5rem; }
+    .article-content .token.comment, .article-content .token.prolog, .article-content .token.doctype, .article-content .token.cdata { color: #4B5563 !important; font-style: italic; }
+    .modal { position: fixed; inset: 0; background: rgba(30,41,59,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .modal.active { opacity: 1; pointer-events: auto; }
+    .modal-img { max-width: 90vw; max-height: 80vh; border-radius: 12px; box-shadow: 0 8px 32px rgba(30,58,138,0.25); }
+    .modal-close { position: absolute; top: 2rem; right: 2rem; color: #fff; font-size: 2.2rem; background: none; border: none; cursor: pointer; z-index: 1100; }
+    .back-to-top { position: fixed; right: 2rem; bottom: 2.5rem; z-index: 100; background: #3B82F6; color: #fff; border-radius: 50%; width: 2.8rem; height: 2.8rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(59,130,246,0.13); opacity: 0.85; transition: background 0.2s, opacity 0.2s; border: none; }
+    .back-to-top:hover, .back-to-top:focus { background: #2563eb; opacity: 1; }
+    .focus-outline:focus { outline: 2px solid #3B82F6; outline-offset: 2px; }
+    @media (max-width: 1024px) {
+      .article-header, .article-content { max-width: 92vw; }
+      .article-title { font-size: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .article-header, .article-content { max-width: 99vw; padding-left: 0.5rem; padding-right: 0.5rem; }
+      .article-title { font-size: 1.4rem; }
+      .feature-img { border-radius: 6px; }
+    }
+    @media (max-width: 640px) {
+      .article-title { font-size: 1.1rem; }
+      .article-content { font-size: 0.98rem; }
+      .feature-img { border-radius: 6px; }
+    }
+  </style>
+</head>
+<body class="bg-white text-neutral-900">
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300" id="navbar">
+    <nav class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 text-primary-700 font-extrabold text-xl">
+        <img src="assets/logo.svg" alt="Logo" class="h-8 w-8" loading="lazy">
+        DevName
+      </a>
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex flex-1 justify-center gap-8 text-base font-medium">
+        <li><a href="index.html" class="link">Home</a></li>
+        <li><a href="about.html" class="link">About</a></li>
+        <li><a href="projects.html" class="link">Projects</a></li>
+        <li><a href="blog.html" class="link active-link" aria-current="page">Blog</a></li>
+        <li><a href="contact.html" class="link">Contact</a></li>
+      </ul>
+      <!-- Hamburger -->
+      <button id="menu-btn" class="md:hidden text-2xl text-primary-700 focus:outline-none" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 text-xl font-semibold hidden">
+      <button id="close-menu" class="absolute top-6 right-8 text-3xl text-primary-700" aria-label="Close menu"><i class="fas fa-times"></i></button>
+      <a href="index.html" class="link">Home</a>
+      <a href="about.html" class="link">About</a>
+      <a href="projects.html" class="link">Projects</a>
+      <a href="blog.html" class="link active-link" aria-current="page">Blog</a>
+      <a href="contact.html" class="link">Contact</a>
+    </div>
+  </header>
+
+  <main class="pt-28 pb-16 fade-in">
+    <div class="article-header">
+      <!-- Back to Blog -->
+      <a href="blog.html" class="back-btn focus-outline" aria-label="Back to blog list">
+        <i class="fas fa-arrow-left"></i> Back to Blog
+      </a>
+      <!-- Article Meta -->
+      <div class="article-meta mt-6">
+        <span>2024-02-15 · 7 min read</span>
+        <div class="article-stats">
+          <span><i class="fas fa-eye"></i>1,200</span>
+          <span><i class="fas fa-comments"></i>8</span>
+        </div>
+      </div>
+      <!-- Title -->
+      <h1 class="article-title">How to Build Scalable React Applications</h1>
+    </div>
+    <!-- Feature Image -->
+    <div class="max-w-3xl mx-auto">
+      <picture>
+        <div class="img-placeholder skeleton absolute inset-0 z-10"></div>
+        <source srcset="assets/blog1-480w.webp 480w, assets/blog1-800w.webp 800w" type="image/webp">
+        <img src="assets/blog1.jpg"
+             srcset="assets/blog1-480w.jpg 480w, assets/blog1-800w.jpg 800w"
+             sizes="(max-width: 640px) 100vw, 800px"
+             alt="React code screenshot"
+             class="feature-img focus-outline lazy"
+             tabindex="0"
+             loading="lazy"
+             onload="this.previousElementSibling && this.previousElementSibling.remove();this.classList.add('loaded');">
+      </picture>
+    </div>
+    <!-- Article Content -->
+    <article class="article-content mt-10" aria-label="Article content">
+      <div class="subtitle"><span class="subtitle-number">1</span> <span>Introduction</span></div>
+      <p>Building scalable React applications requires careful planning, modular architecture, and a focus on performance. In this article, we'll explore best practices and practical tips for creating React apps that can grow with your business.</p>
+      <div class="subtitle"><span class="subtitle-number">2</span> <span>Project Structure</span></div>
+      <p>A well-organized project structure is essential. Consider the following example:</p>
+      <pre class="language-js" tabindex="0" aria-label="JavaScript code example"><button class="copy-btn" aria-label="Copy code">Copy</button><code class="language-js">// src/components/Button.js
+import React from 'react';
+
+// Button component
+export default function Button({ children, ...props }) {
+  return (
+    <button className="btn-main" {...props}>
+      {children}
+    </button>
+  );
+}
+</code></pre>
+      <div class="subtitle"><span class="subtitle-number">3</span> <span>Performance Optimization</span></div>
+      <p>Optimize performance by using code splitting, memoization, and lazy loading. For example:</p>
+      <pre class="language-js" tabindex="0" aria-label="JavaScript code example"><button class="copy-btn" aria-label="Copy code">Copy</button><code class="language-js">import React, { Suspense, lazy } from 'react';
+
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HeavyComponent />
+    </Suspense>
+  );
+}
+</code></pre>
+      <div class="subtitle"><span class="subtitle-number">4</span> <span>Conclusion</span></div>
+      <p>By following these best practices, you can build React applications that are maintainable, scalable, and performant.</p>
+    </article>
+  </main>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top focus-outline" id="backToTop" aria-label="Back to top" style="display:none;"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-900 text-white py-12 mt-12">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Contact Info -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">Contact</h4>
+        <ul class="space-y-2 text-neutral-300">
+          <li><i class="fas fa-envelope mr-2"></i> email@example.com</li>
+          <li><i class="fas fa-phone mr-2"></i> +1 234 567 8901</li>
+          <li><i class="fas fa-map-marker-alt mr-2"></i> City, Country</li>
+        </ul>
+      </div>
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-neutral-300">
+          <li><a href="index.html" class="hover:text-primary-400 transition">Home</a></li>
+          <li><a href="about.html" class="hover:text-primary-400 transition">About</a></li>
+          <li><a href="projects.html" class="hover:text-primary-400 transition">Projects</a></li>
+          <li><a href="blog.html" class="hover:text-primary-400 transition">Blog</a></li>
+        </ul>
+      </div>
+      <!-- Social Media -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+        <div class="flex gap-4">
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-neutral-400 mt-10 text-sm">
+      &copy; 2024 DevName. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Prism.js for syntax highlighting -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-jsx.min.js"></script>
+  <!-- Main JS -->
+  <script src="js/main.js"></script>
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 20) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+      // Back to top button
+      const backToTop = document.getElementById('backToTop');
+      if(window.scrollY > 300) {
+        backToTop.style.display = 'flex';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    // Mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    // Back to top
+    document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Feature image modal
+    const featureImg = document.querySelector('.feature-img');
+    let modal = null;
+    let modalImg = null;
+    let modalClose = null;
+    function openModal(src, alt) {
+      if(!modal) {
+        modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `<button class=\"modal-close\" aria-label=\"Close image\">&times;</button><img class=\"modal-img\" alt=\"\">`;
+        document.body.appendChild(modal);
+        modalImg = modal.querySelector('.modal-img');
+        modalClose = modal.querySelector('.modal-close');
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+      }
+      modalImg.src = src;
+      modalImg.alt = alt;
+      modal.classList.add('active');
+      modalImg.focus();
+    }
+    function closeModal() {
+      if(modal) modal.classList.remove('active');
+    }
+    if(featureImg) {
+      featureImg.addEventListener('click', () => openModal(featureImg.src, featureImg.alt));
+      featureImg.addEventListener('keydown', e => { if(e.key === 'Enter') openModal(featureImg.src, featureImg.alt); });
+    }
+    // Copy code button
+    document.querySelectorAll('pre').forEach(pre => {
+      const btn = pre.querySelector('.copy-btn');
+      if(btn) {
+        btn.addEventListener('click', () => {
+          const code = pre.querySelector('code').innerText;
+          navigator.clipboard.writeText(code).then(() => {
+            let tip = document.createElement('span');
+            tip.className = 'copy-success';
+            tip.innerText = 'Copied!';
+            pre.appendChild(tip);
+            setTimeout(() => tip.remove(), 1200);
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html> 
