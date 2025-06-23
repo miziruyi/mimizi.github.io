@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog - Articles on frontend, backend, and fullstack development, design, and technology.">
+    <title>Blog | Personal Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111827; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        .navbar-blur { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
+        .navbar-scrolled { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 8px rgba(30,58,138,0.07); }
+        .link { transition: color 0.2s; }
+        .link:hover, .active-link { color: #3B82F6 !important; font-weight: 700; }
+        .fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: none; } }
+        .search-bar { border-radius: 6px; border: 1.5px solid #E5E7EB; background: #F9FAFB; transition: border 0.2s; }
+        .search-bar:focus-within { border-color: #3B82F6; }
+        .search-input { background: transparent; outline: none; border: none; width: 100%; font-size: 1rem; color: #111827; }
+        .search-icon { color: #4B5563; font-size: 1.1rem; }
+        .clear-btn { color: #9CA3AF; font-size: 1.1rem; cursor: pointer; transition: color 0.2s; }
+        .clear-btn:hover { color: #3B82F6; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+        .tag-btn { border-radius: 9999px; padding: 0.35rem 1.1rem; font-size: 0.98rem; font-weight: 600; background: #F1F5F9; color: #1E3A8A; transition: background 0.2s, color 0.2s; cursor: pointer; border: none; }
+        .tag-btn.selected, .tag-btn:focus { background: #3B82F6; color: #fff; }
+        .tag-btn:hover { background: #2563eb; color: #fff; }
+        .blog-card { background: #fff; border-radius: 8px; box-shadow: 0 2px 12px rgba(30,58,138,0.07); display: flex; flex-direction: row; gap: 1.5rem; margin-bottom: 2.2rem; transition: transform 0.18s, box-shadow 0.18s; }
+        .blog-card:hover, .blog-card:focus-within { transform: translateY(-6px) scale(1.01); box-shadow: 0 8px 32px rgba(30,58,138,0.13); }
+        .blog-img { aspect-ratio: 16/9; width: 320px; max-width: 40vw; object-fit: cover; border-radius: 8px 0 0 8px; background: #18181b; transition: transform 0.2s; cursor: pointer; }
+        .blog-card:hover .blog-img, .blog-card:focus-within .blog-img { transform: scale(1.04); }
+        .blog-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 1.5rem 1.2rem 1.5rem 0; }
+        .blog-meta { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem; }
+        .blog-category { background: #F1F5F9; color: #3B82F6; border-radius: 9999px; padding: 0.18rem 0.9rem; font-size: 0.9rem; font-weight: 600; }
+        .blog-date { color: #6B7280; font-size: 0.95rem; }
+        .blog-title { font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem; transition: color 0.2s; }
+        .blog-card:hover .blog-title, .blog-card:focus-within .blog-title { color: #1E3A8A; }
+        .blog-desc { color: #4B5563; font-size: 1rem; line-height: 1.6; margin-bottom: 1.1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .blog-stats { display: flex; align-items: center; gap: 1.2rem; color: #6B7280; font-size: 0.98rem; }
+        .blog-stats i { margin-right: 0.3rem; }
+        .read-more { color: #3B82F6; font-weight: 600; text-align: right; transition: color 0.2s; }
+        .read-more:hover, .read-more:focus { color: #1E3A8A; text-decoration: underline; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin: 3rem 0 2rem 0; }
+        .page-btn { width: 2.3rem; height: 2.3rem; border-radius: 50%; background: #F1F5F9; color: #1E3A8A; font-weight: 600; border: none; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: background 0.2s, color 0.2s; cursor: pointer; }
+        .page-btn.active, .page-btn:focus { background: #3B82F6; color: #fff; }
+        .page-btn:hover { background: #2563eb; color: #fff; }
+        .page-ellipsis { color: #9CA3AF; font-size: 1.1rem; padding: 0 0.3rem; }
+        .skeleton { background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%); background-size: 200% 100%; animation: skeleton 1.2s infinite linear; border-radius: 8px; }
+        @keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .no-results { text-align: center; color: #6B7280; font-size: 1.1rem; margin: 2.5rem 0; }
+        @media (max-width: 1024px) {
+            .search-filter-row { flex-direction: column; gap: 1.2rem; align-items: stretch; }
+            .blog-card { flex-direction: row; }
+            .blog-img { width: 220px; max-width: 45vw; }
+        }
+        @media (max-width: 768px) {
+            .search-filter-row { flex-direction: column; gap: 1.2rem; align-items: stretch; }
+            .blog-card { flex-direction: column; }
+            .blog-img { width: 100%; max-width: 100%; border-radius: 8px 8px 0 0; }
+            .blog-content { padding: 1.2rem; }
+            .pagination { gap: 0.2rem; }
+        }
+        @media (max-width: 640px) {
+            .blog-title { font-size: 1.05rem; }
+            .blog-desc { font-size: 0.97rem; }
+            .blog-content { padding: 1rem; }
+            .pagination { gap: 0.1rem; }
+        }
+        .focus-outline:focus { outline: 2px solid #3B82F6; outline-offset: 2px; }
+        .tag-list-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    </style>
+</head>
+<body class="bg-white text-neutral-900">
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300" id="navbar">
+        <nav class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 text-primary-700 font-extrabold text-xl">
+                <img src="assets/logo.svg" alt="Logo" class="h-8 w-8" loading="lazy">
+                DevName
+            </a>
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex flex-1 justify-center gap-8 text-base font-medium">
+                <li><a href="index.html" class="link">Home</a></li>
+                <li><a href="about.html" class="link">About</a></li>
+                <li><a href="projects.html" class="link">Projects</a></li>
+                <li><a href="blog.html" class="link active-link" aria-current="page">Blog</a></li>
+                <li><a href="contact.html" class="link">Contact</a></li>
+            </ul>
+            <!-- Hamburger -->
+            <button id="menu-btn" class="md:hidden text-2xl text-primary-700 focus:outline-none" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 text-xl font-semibold hidden">
+            <button id="close-menu" class="absolute top-6 right-8 text-3xl text-primary-700" aria-label="Close menu"><i class="fas fa-times"></i></button>
+            <a href="index.html" class="link">Home</a>
+            <a href="about.html" class="link">About</a>
+            <a href="projects.html" class="link">Projects</a>
+            <a href="blog.html" class="link active-link" aria-current="page">Blog</a>
+            <a href="contact.html" class="link">Contact</a>
+        </div>
+    </header>
+
+    <!-- Title Section -->
+    <section class="pt-28 pb-16 text-center fade-in">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4" style="color:#111827;">Blog</h1>
+        <p class="text-lg md:text-xl text-neutral-500" style="color:#4B5563;">Insights, tutorials, and stories on web development, design, and technology.</p>
+    </section>
+
+    <!-- Search & Filter -->
+    <section class="container mx-auto px-4 mb-10 fade-in">
+        <div class="flex search-filter-row items-center gap-6 mb-6 flex-wrap md:flex-nowrap">
+            <!-- Search Bar -->
+            <form class="flex-1 flex items-center search-bar px-4 py-2 focus-outline" role="search" aria-label="Search blog articles" autocomplete="off" onsubmit="return false;">
+                <i class="fas fa-search search-icon mr-3"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search articles..." aria-label="Search articles">
+                <button type="button" id="clearSearch" class="clear-btn ml-2 hidden" aria-label="Clear search"><i class="fas fa-times-circle"></i></button>
+            </form>
+            <!-- Tag Filter -->
+            <div class="tag-list tag-list-scroll flex-nowrap" id="tagList" role="tablist" aria-label="Filter by category">
+                <button class="tag-btn selected focus-outline" data-tag="All" role="tab" aria-selected="true">All</button>
+                <button class="tag-btn focus-outline" data-tag="Frontend" role="tab">Frontend</button>
+                <button class="tag-btn focus-outline" data-tag="Backend" role="tab">Backend</button>
+                <button class="tag-btn focus-outline" data-tag="Fullstack" role="tab">Fullstack</button>
+                <button class="tag-btn focus-outline" data-tag="UI/UX" role="tab">UI/UX</button>
+                <button class="tag-btn focus-outline" data-tag="DevOps" role="tab">DevOps</button>
+                <button class="tag-btn focus-outline" data-tag="Other" role="tab">Other</button>
+            </div>
+        </div>
+        <!-- Filter Result Count -->
+        <div id="resultCount" class="text-sm text-neutral-500 mb-2" aria-live="polite"></div>
+    </section>
+
+    <!-- Blog List -->
+    <main class="container mx-auto px-4 fade-in" id="blogList" aria-live="polite">
+        <!-- Blog cards will be rendered here by JS -->
+        <div class="skeleton h-40 mb-8"></div>
+        <div class="skeleton h-40 mb-8"></div>
+        <div class="skeleton h-40 mb-8"></div>
+    </main>
+
+    <!-- Pagination -->
+    <nav class="pagination" id="pagination" aria-label="Pagination">
+        <!-- Pagination buttons will be rendered here by JS -->
+    </nav>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-900 text-white py-12 mt-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Contact Info -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Contact</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><i class="fas fa-envelope mr-2"></i> email@example.com</li>
+                    <li><i class="fas fa-phone mr-2"></i> +1 234 567 8901</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> City, Country</li>
+                </ul>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><a href="index.html" class="hover:text-primary-400 transition">Home</a></li>
+                    <li><a href="about.html" class="hover:text-primary-400 transition">About</a></li>
+                    <li><a href="projects.html" class="hover:text-primary-400 transition">Projects</a></li>
+                    <li><a href="blog.html" class="hover:text-primary-400 transition">Blog</a></li>
+                </ul>
+            </div>
+            <!-- Social Media -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-neutral-400 mt-10 text-sm">
+            &copy; 2024 DevName. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html> 

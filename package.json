@@ -1,0 +1,43 @@
+{
+  "name": "personal-brand-portfolio",
+  "version": "1.0.0",
+  "description": "A modern, responsive personal brand portfolio website built with HTML, Tailwind CSS, and JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./css/styles.css -o ./css/output.css --watch",
+    "build": "npx tailwindcss -i ./css/styles.css -o ./css/output.css --minify",
+    "serve": "npx http-server . -p 3000 -o",
+    "start": "npm run dev & npm run serve"
+  },
+  "keywords": [
+    "portfolio",
+    "personal-brand",
+    "tailwind-css",
+    "responsive",
+    "web-design",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "http-server": "^14.1.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/personal-brand-portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/personal-brand-portfolio/issues"
+  },
+  "homepage": "https://github.com/yourusername/personal-brand-portfolio#readme"
+} 

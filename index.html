@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio of a developer. Showcasing skills, projects, and blog articles.">
+    <title>Hello, I am Developer | Personal Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .navbar-blur { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
+        .navbar-scrolled { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 8px rgba(30,58,138,0.07); }
+        .card-hover { transition: transform 0.3s, box-shadow 0.3s; }
+        .card-hover:hover { transform: scale(1.04); box-shadow: 0 8px 32px rgba(30,58,138,0.10); }
+        .btn { transition: background 0.2s, color 0.2s, box-shadow 0.2s; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-secondary:hover { background: #3b82f6; color: #fff; }
+        .btn-text:hover { color: #1e3a8a; background: #f1f5f9; }
+        .badge { transition: background 0.2s, color 0.2s; }
+        .badge .fa-xmark { cursor: pointer; margin-left: 0.5rem; }
+        .lazy { filter: blur(8px); transition: filter 0.4s; }
+        .lazy.loaded { filter: blur(0); }
+    </style>
+</head>
+<body class="bg-white text-neutral-900">
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300" id="navbar">
+        <nav class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 text-primary-700 font-extrabold text-xl">
+                <img src="assets/logo.svg" alt="Logo" class="h-8 w-8" loading="lazy">
+                DevName
+            </a>
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex flex-1 justify-center gap-8 text-base font-medium">
+                <li><a href="#hero" class="hover:text-primary-600 transition">Home</a></li>
+                <li><a href="#skills" class="hover:text-primary-600 transition">Skills</a></li>
+                <li><a href="#projects" class="hover:text-primary-600 transition">Projects</a></li>
+                <li><a href="#blog" class="hover:text-primary-600 transition">Blog</a></li>
+                <li><a href="#contact" class="hover:text-primary-600 transition">Contact</a></li>
+            </ul>
+            <!-- Hamburger -->
+            <button id="menu-btn" class="md:hidden text-2xl text-primary-700 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 text-xl font-semibold hidden">
+            <button id="close-menu" class="absolute top-6 right-8 text-3xl text-primary-700"><i class="fas fa-times"></i></button>
+            <a href="#hero" class="hover:text-primary-600 transition">Home</a>
+            <a href="#skills" class="hover:text-primary-600 transition">Skills</a>
+            <a href="#projects" class="hover:text-primary-600 transition">Projects</a>
+            <a href="#blog" class="hover:text-primary-600 transition">Blog</a>
+            <a href="#contact" class="hover:text-primary-600 transition">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex flex-col md:flex-row items-center justify-center pt-24 pb-12 bg-gradient-to-br from-primary-700 via-primary-600 to-blue-400 relative overflow-hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12 px-4">
+            <!-- Left: Text -->
+            <div class="flex-1 text-center md:text-left animate-fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6" style="font-family: 'Montserrat', sans-serif;">Hello, I am Developer</h1>
+                <h2 class="text-2xl md:text-3xl text-blue-100 font-medium mb-8">A passionate Full Stack Developer &amp; Tech Enthusiast</h2>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#projects" class="btn btn-primary px-8 py-3 rounded-md font-semibold bg-primary-600 text-white shadow hover:bg-primary-700">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary px-8 py-3 rounded-md font-semibold border border-primary-600 text-primary-600 bg-white hover:bg-primary-50">Contact Me</a>
+                </div>
+            </div>
+            <!-- Right: Code Editor Image -->
+            <div class="flex-1 flex items-center justify-center relative animate-fade-in-up" style="animation-delay:0.2s;">
+                <div class="rounded-xl shadow-2xl overflow-hidden border-2 border-primary-800 bg-neutral-900 relative w-full max-w-md">
+                    <div class="img-placeholder skeleton absolute inset-0 z-10"></div>
+                    <img src="assets/editor.png"
+                         srcset="assets/editor-480w.png 480w, assets/editor-800w.png 800w"
+                         sizes="(max-width: 640px) 100vw, 800px"
+                         alt="Code Editor Screenshot"
+                         class="w-full h-80 object-cover lazy"
+                         loading="lazy"
+                         onload="this.previousElementSibling && this.previousElementSibling.remove();this.classList.add('loaded');">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary-700">Tech Stack</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-primary-50 rounded-xl shadow card-hover p-8 flex flex-col items-center text-center">
+                    <i class="fas fa-code text-4xl text-primary-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Frontend</h3>
+                    <p class="text-neutral-600">React, Vue, HTML5, CSS3, Tailwind CSS, TypeScript</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-secondary-50 rounded-xl shadow card-hover p-8 flex flex-col items-center text-center">
+                    <i class="fas fa-server text-4xl text-secondary-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Backend</h3>
+                    <p class="text-neutral-600">Node.js, Express, Python, RESTful API, GraphQL</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-green-50 rounded-xl shadow card-hover p-8 flex flex-col items-center text-center">
+                    <i class="fas fa-database text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Database</h3>
+                    <p class="text-neutral-600">MongoDB, PostgreSQL, MySQL, Redis</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-yellow-50 rounded-xl shadow card-hover p-8 flex flex-col items-center text-center">
+                    <i class="fas fa-cloud text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">DevOps &amp; Cloud</h3>
+                    <p class="text-neutral-600">AWS, Docker, CI/CD, Linux, Nginx</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-neutral-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary-700">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-xl shadow card-hover overflow-hidden flex flex-col">
+                    <img src="assets/project1.jpg" alt="Project 1 Screenshot" class="w-full h-48 object-cover lazy" loading="lazy">
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">E-Commerce Platform</h3>
+                        <p class="text-neutral-600 mb-4 flex-1">A modern e-commerce platform with user authentication, product management, and payment integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge bg-primary-100 text-primary-700">React</span>
+                            <span class="badge bg-secondary-100 text-secondary-700">Node.js</span>
+                            <span class="badge bg-green-100 text-green-700">MongoDB</span>
+                        </div>
+                        <a href="#" class="btn btn-text text-primary-600 font-medium">View Details <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="bg-white rounded-xl shadow card-hover overflow-hidden flex flex-col">
+                    <img src="assets/project2.jpg" alt="Project 2 Screenshot" class="w-full h-48 object-cover lazy" loading="lazy">
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Task Management App</h3>
+                        <p class="text-neutral-600 mb-4 flex-1">A collaborative task management app with real-time updates, team collaboration, and progress tracking.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge bg-primary-100 text-primary-700">Vue.js</span>
+                            <span class="badge bg-secondary-100 text-secondary-700">Firebase</span>
+                            <span class="badge bg-yellow-100 text-yellow-700">Vuetify</span>
+                        </div>
+                        <a href="#" class="btn btn-text text-primary-600 font-medium">View Details <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="bg-white rounded-xl shadow card-hover overflow-hidden flex flex-col">
+                    <img src="assets/project3.jpg" alt="Project 3 Screenshot" class="w-full h-48 object-cover lazy" loading="lazy">
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Portfolio Website</h3>
+                        <p class="text-neutral-600 mb-4 flex-1">A personal portfolio website to showcase projects, skills, and blog articles with a modern UI.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge bg-primary-100 text-primary-700">HTML5</span>
+                            <span class="badge bg-secondary-100 text-secondary-700">Tailwind</span>
+                            <span class="badge bg-green-100 text-green-700">SEO</span>
+                        </div>
+                        <a href="#" class="btn btn-text text-primary-600 font-medium">View Details <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center mt-10">
+                <a href="#projects" class="btn btn-primary px-8 py-3 rounded-md font-semibold bg-primary-600 text-white shadow hover:bg-primary-700">View More Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary-700">Latest Articles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Blog 1 -->
+                <article class="bg-neutral-50 rounded-xl shadow card-hover p-8 flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">How to Build a Modern Web App</h3>
+                    <p class="text-neutral-600 mb-4 flex-1">A step-by-step guide to building scalable and maintainable web applications using the latest technologies.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge bg-primary-100 text-primary-700">Web Development</span>
+                        <span class="badge bg-secondary-100 text-secondary-700">Best Practices</span>
+                    </div>
+                    <a href="#" class="btn btn-text text-primary-600 font-medium">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                </article>
+                <!-- Blog 2 -->
+                <article class="bg-neutral-50 rounded-xl shadow card-hover p-8 flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">Mastering CSS for Responsive Design</h3>
+                    <p class="text-neutral-600 mb-4 flex-1">Tips and tricks for creating responsive layouts that look great on any device using CSS and Tailwind.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge bg-primary-100 text-primary-700">CSS</span>
+                        <span class="badge bg-secondary-100 text-secondary-700">Responsive</span>
+                    </div>
+                    <a href="#" class="btn btn-text text-primary-600 font-medium">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                </article>
+            </div>
+            <div class="flex justify-center mt-10">
+                <a href="#blog" class="btn btn-secondary px-8 py-3 rounded-md font-semibold border border-primary-600 text-primary-600 bg-white hover:bg-primary-50">Browse All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-neutral-900 text-white py-12 mt-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Contact Info -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Contact</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><i class="fas fa-envelope mr-2"></i> email@example.com</li>
+                    <li><i class="fas fa-phone mr-2"></i> +1 234 567 8901</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> City, Country</li>
+                </ul>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><a href="#hero" class="hover:text-primary-400 transition">Home</a></li>
+                    <li><a href="#skills" class="hover:text-primary-400 transition">Skills</a></li>
+                    <li><a href="#projects" class="hover:text-primary-400 transition">Projects</a></li>
+                    <li><a href="#blog" class="hover:text-primary-400 transition">Blog</a></li>
+                </ul>
+            </div>
+            <!-- Social Media -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-neutral-400 mt-10 text-sm">
+            &copy; 2024 DevName. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 20) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+        // Mobile menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        // Lazy load images
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('img.lazy');
+            if ('IntersectionObserver' in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let img = entry.target;
+                            img.src = img.dataset.src || img.src;
+                            img.classList.add('loaded');
+                            lazyImageObserver.unobserve(img);
+                        }
+                    });
+                });
+                lazyImages.forEach(function(img) {
+                    lazyImageObserver.observe(img);
+                });
+            } else {
+                // Fallback
+                lazyImages.forEach(function(img) {
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
