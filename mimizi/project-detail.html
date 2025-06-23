@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Project Detail - In-depth case study of a featured project, including overview, tech stack, process, and screenshots.">
+  <title>Project Detail | Personal Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111827; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+    .navbar-blur { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
+    .navbar-scrolled { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 8px rgba(30,58,138,0.07); }
+    .link { transition: color 0.2s; }
+    .link:hover { color: #1E3A8A; }
+    .fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: none; } }
+    .btn-main { background: #3B82F6; color: #fff; border-radius: 0.5rem; padding: 0.75rem 2.2rem; font-weight: 600; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px rgba(59,130,246,0.08); }
+    .btn-main:hover, .btn-main:focus { background: #2563eb; }
+    .btn-secondary { background: #fff; color: #3B82F6; border-radius: 0.5rem; border: 1.5px solid #3B82F6; padding: 0.75rem 2.2rem; font-weight: 600; font-size: 1rem; transition: background 0.2s, color 0.2s, box-shadow 0.2s; }
+    .btn-secondary:hover, .btn-secondary:focus { background: #f1f5f9; color: #1E3A8A; }
+    .btn:active { transform: scale(0.97); }
+    .back-btn { color: #3B82F6; font-weight: 600; transition: color 0.2s; }
+    .back-btn:hover, .back-btn:focus { color: #1E3A8A; text-decoration: underline; }
+    .overview-bg { background: linear-gradient(135deg, #EEF2FF 0%, #FFFFFF 100%); }
+    .info-card { border-radius: 8px; box-shadow: 0 2px 12px rgba(30,58,138,0.07); background: #fff; position: sticky; top: 100px; }
+    .info-label { color: #4B5563; font-size: 0.95rem; font-weight: 500; }
+    .info-value { color: #111827; font-size: 1.05rem; font-weight: 600; }
+    .info-badge { background: #3B82F6; color: #fff; border-radius: 9999px; padding: 0.18rem 0.9rem; font-size: 0.9rem; font-weight: 600; margin-right: 0.5rem; }
+    .info-badge-secondary { background: #F1F5F9; color: #1E3A8A; }
+    .tech-card { background: #fff; border-radius: 8px; box-shadow: 0 2px 12px rgba(30,58,138,0.07); padding: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .tech-card:hover, .tech-card:focus-within { transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 32px rgba(30,58,138,0.13); }
+    .tech-icon { font-size: 2.2rem; color: #3B82F6; margin-bottom: 0.7rem; }
+    .timeline { border-left: 3px solid #3B82F6; margin-left: 1.2rem; }
+    .timeline-point { width: 1.1rem; height: 1.1rem; background: #3B82F6; border-radius: 50%; position: absolute; left: -1.6rem; top: 0.2rem; border: 3px solid #fff; box-shadow: 0 0 0 2px #3B82F6; }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-label { font-size: 1.05rem; font-weight: 700; color: #1E3A8A; margin-bottom: 0.2rem; }
+    .timeline-desc { color: #4B5563; font-size: 0.98rem; line-height: 1.7; }
+    .carousel { position: relative; }
+    .carousel-img { aspect-ratio: 16/9; object-fit: cover; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px rgba(30,58,138,0.07); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .carousel-img:hover, .carousel-img:focus { transform: scale(1.03); box-shadow: 0 8px 32px rgba(30,58,138,0.13); }
+    .carousel-controls { position: absolute; top: 50%; left: 0; right: 0; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
+    .carousel-btn { background: rgba(255,255,255,0.85); border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #3B82F6; box-shadow: 0 2px 8px rgba(30,58,138,0.07); border: none; cursor: pointer; pointer-events: auto; transition: background 0.2s, color 0.2s; }
+    .carousel-btn:hover, .carousel-btn:focus { background: #3B82F6; color: #fff; }
+    .carousel-caption { text-align: center; color: #4B5563; font-size: 0.98rem; margin-top: 0.7rem; }
+    .modal { position: fixed; inset: 0; background: rgba(30,41,59,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .modal.active { opacity: 1; pointer-events: auto; }
+    .modal-img { max-width: 90vw; max-height: 80vh; border-radius: 12px; box-shadow: 0 8px 32px rgba(30,58,138,0.25); }
+    .modal-close { position: absolute; top: 2rem; right: 2rem; color: #fff; font-size: 2.2rem; background: none; border: none; cursor: pointer; z-index: 1100; }
+    .back-to-top { position: fixed; right: 2rem; bottom: 2.5rem; z-index: 100; background: #3B82F6; color: #fff; border-radius: 50%; width: 2.8rem; height: 2.8rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(59,130,246,0.13); opacity: 0.85; transition: background 0.2s, opacity 0.2s; border: none; }
+    .back-to-top:hover, .back-to-top:focus { background: #2563eb; opacity: 1; }
+    .focus-outline:focus { outline: 2px solid #3B82F6; outline-offset: 2px; }
+    @media (max-width: 1024px) {
+      .info-card { position: static; top: auto; margin-bottom: 2rem; }
+      .main-content { flex-direction: column; }
+    }
+    @media (max-width: 768px) {
+      .main-content { flex-direction: column; }
+      .carousel-img { border-radius: 8px; }
+      .info-card { margin-bottom: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .overview-title { font-size: 1.5rem; }
+      .overview-sub { font-size: 1.05rem; }
+      .btn-main, .btn-secondary { width: 100%; display: block; margin-bottom: 0.7rem; }
+      .info-card { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body class="bg-white text-neutral-900">
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300" id="navbar">
+    <nav class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 text-primary-700 font-extrabold text-xl">
+        <img src="assets/logo.svg" alt="Logo" class="h-8 w-8" loading="lazy">
+        DevName
+      </a>
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex flex-1 justify-center gap-8 text-base font-medium">
+        <li><a href="index.html" class="link">Home</a></li>
+        <li><a href="about.html" class="link">About</a></li>
+        <li><a href="projects.html" class="link">Projects</a></li>
+        <li><a href="blog.html" class="link">Blog</a></li>
+        <li><a href="contact.html" class="link">Contact</a></li>
+      </ul>
+      <!-- Hamburger -->
+      <button id="menu-btn" class="md:hidden text-2xl text-primary-700 focus:outline-none" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 text-xl font-semibold hidden">
+      <button id="close-menu" class="absolute top-6 right-8 text-3xl text-primary-700" aria-label="Close menu"><i class="fas fa-times"></i></button>
+      <a href="index.html" class="link">Home</a>
+      <a href="about.html" class="link">About</a>
+      <a href="projects.html" class="link">Projects</a>
+      <a href="blog.html" class="link">Blog</a>
+      <a href="contact.html" class="link">Contact</a>
+    </div>
+  </header>
+
+  <!-- Back to Projects -->
+  <div class="container mx-auto px-4 pt-28 pb-4">
+    <a href="projects.html" class="back-btn flex items-center gap-2 focus-outline" aria-label="Back to project list">
+      <i class="fas fa-arrow-left"></i> Back to Projects
+    </a>
+  </div>
+
+  <!-- Project Overview -->
+  <section class="overview-bg py-12 md:py-16">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-start gap-12 main-content fade-in">
+      <!-- Left: Overview & Content -->
+      <div class="flex-1 min-w-0">
+        <h1 class="overview-title text-3xl md:text-4xl font-extrabold mb-2" style="color:#111827;">E-Commerce Platform</h1>
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <span class="info-badge-secondary info-badge">2024</span>
+          <span class="info-badge">Active</span>
+          <span class="info-badge-secondary info-badge">Web</span>
+        </div>
+        <p class="overview-sub text-lg text-neutral-500 mb-6" style="color:#4B5563;">A scalable, full-featured e-commerce platform for modern businesses.</p>
+        <!-- Project Overview -->
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-3" style="color:#111827;">Project Overview</h2>
+          <p class="text-base text-neutral-600 mb-4" style="color:#4B5563; line-height:1.7;">This project was designed to provide a robust, scalable solution for online retailers. <b>Key goals</b> included seamless user experience, secure transactions, and easy product management. The platform supports user authentication, product catalog, shopping cart, and payment integration.</p>
+          <ul class="list-disc pl-6 text-base text-neutral-600 mb-4" style="color:#4B5563;">
+            <li><b>Modern UI/UX</b> with responsive design</li>
+            <li><b>Secure authentication</b> and authorization</li>
+            <li><b>Product management</b> for admins</li>
+            <li><b>Integrated payment gateway</b></li>
+            <li><b>Order tracking</b> and notifications</li>
+          </ul>
+        </div>
+        <!-- Tech Highlights -->
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-3" style="color:#111827;">Technical Highlights</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="tech-card focus-outline" tabindex="0">
+              <i class="fas fa-layer-group tech-icon"></i>
+              <div class="font-bold mb-1">Tech Stack</div>
+              <div class="text-neutral-600 text-sm">React, Node.js, MongoDB, Express, Tailwind CSS</div>
+            </div>
+            <div class="tech-card focus-outline" tabindex="0">
+              <i class="fas fa-sitemap tech-icon"></i>
+              <div class="font-bold mb-1">Architecture</div>
+              <div class="text-neutral-600 text-sm">Modular, RESTful API, JWT Auth, MVC pattern</div>
+            </div>
+            <div class="tech-card focus-outline" tabindex="0">
+              <i class="fas fa-bolt tech-icon"></i>
+              <div class="font-bold mb-1">Performance</div>
+              <div class="text-neutral-600 text-sm">SSR, code splitting, image optimization, caching</div>
+            </div>
+            <div class="tech-card focus-outline" tabindex="0">
+              <i class="fas fa-cogs tech-icon"></i>
+              <div class="font-bold mb-1">DevOps</div>
+              <div class="text-neutral-600 text-sm">Docker, CI/CD, AWS deployment, monitoring</div>
+            </div>
+          </div>
+        </div>
+        <!-- Development Timeline -->
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-3" style="color:#111827;">Development Timeline</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-point"></span>
+              <div class="ml-8">
+                <div class="timeline-label">Requirement Analysis & Planning</div>
+                <div class="timeline-desc">Defined project scope, user stories, and technical requirements. Created wireframes and project plan.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-point"></span>
+              <div class="ml-8">
+                <div class="timeline-label">Tech Stack & Architecture</div>
+                <div class="timeline-desc">Selected React, Node.js, MongoDB. Designed RESTful API and authentication flow.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-point"></span>
+              <div class="ml-8">
+                <div class="timeline-label">Development & Testing</div>
+                <div class="timeline-desc">Implemented features, wrote tests, and performed code reviews. Iterative QA and bug fixing.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-point"></span>
+              <div class="ml-8">
+                <div class="timeline-label">Launch & Optimization</div>
+                <div class="timeline-desc">Deployed to AWS, set up monitoring, and optimized for performance and SEO.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Screenshot Carousel -->
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-3" style="color:#111827;">Project Screenshots</h2>
+          <div class="carousel" id="carousel">
+            <div class="relative">
+              <picture>
+                <div class="img-placeholder skeleton absolute inset-0 z-10"></div>
+                <source srcset="assets/project1-1-480w.webp 480w, assets/project1-1-800w.webp 800w" type="image/webp">
+                <img src="assets/project1-1.jpg"
+                     srcset="assets/project1-1-480w.jpg 480w, assets/project1-1-800w.jpg 800w"
+                     sizes="(max-width: 640px) 100vw, 800px"
+                     alt="Homepage Screenshot"
+                     class="carousel-img lazy focus-outline"
+                     tabindex="0"
+                     loading="lazy"
+                     data-caption="Homepage - Modern UI/UX"
+                     onload="this.previousElementSibling && this.previousElementSibling.remove();this.classList.add('loaded');">
+              </picture>
+              <picture class="hidden">
+                <source srcset="assets/project1-2.webp" type="image/webp">
+                <img src="assets/project1-2.jpg" alt="Product Page Screenshot" class="carousel-img lazy focus-outline" tabindex="0" loading="lazy" data-caption="Product Page - Detailed product info">
+              </picture>
+              <picture class="hidden">
+                <source srcset="assets/project1-3.webp" type="image/webp">
+                <img src="assets/project1-3.jpg" alt="Checkout Screenshot" class="carousel-img lazy focus-outline" tabindex="0" loading="lazy" data-caption="Checkout - Secure payment">
+              </picture>
+              <div class="carousel-controls">
+                <button class="carousel-btn" id="prev-slide" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn" id="next-slide" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+            <div class="carousel-caption mt-2" id="carousel-caption">Homepage - Modern UI/UX</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Info Card -->
+      <aside class="info-card p-6 w-full md:w-80 fade-in" aria-label="Project info">
+        <h2 class="text-lg font-bold mb-4" style="color:#111827;">Project Info</h2>
+        <div class="mb-3">
+          <div class="info-label">Tech Stack</div>
+          <div class="flex flex-wrap gap-2 mt-1">
+            <span class="info-badge">React</span>
+            <span class="info-badge">Node.js</span>
+            <span class="info-badge">MongoDB</span>
+            <span class="info-badge">Tailwind</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">My Role</div>
+          <div class="info-value">Full Stack Developer</div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">Duration</div>
+          <div class="info-value">4 months</div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">Team Size</div>
+          <div class="info-value">5</div>
+        </div>
+        <div class="flex flex-col gap-3 mt-6">
+          <a href="https://github.com/yourname/ecommerce" class="btn-main text-center focus-outline" target="_blank" rel="noopener" aria-label="View source code on GitHub"><i class="fab fa-github mr-2"></i>View Source</a>
+          <a href="#" class="btn-secondary text-center focus-outline" target="_blank" rel="noopener" aria-label="Visit live project"><i class="fas fa-external-link-alt mr-2"></i>Visit Project</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top focus-outline" id="backToTop" aria-label="Back to top" style="display:none;"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-900 text-white py-12 mt-12">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Contact Info -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">Contact</h4>
+        <ul class="space-y-2 text-neutral-300">
+          <li><i class="fas fa-envelope mr-2"></i> email@example.com</li>
+          <li><i class="fas fa-phone mr-2"></i> +1 234 567 8901</li>
+          <li><i class="fas fa-map-marker-alt mr-2"></i> City, Country</li>
+        </ul>
+      </div>
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-neutral-300">
+          <li><a href="index.html" class="hover:text-primary-400 transition">Home</a></li>
+          <li><a href="about.html" class="hover:text-primary-400 transition">About</a></li>
+          <li><a href="projects.html" class="hover:text-primary-400 transition">Projects</a></li>
+          <li><a href="blog.html" class="hover:text-primary-400 transition">Blog</a></li>
+        </ul>
+      </div>
+      <!-- Social Media -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+        <div class="flex gap-4">
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-neutral-400 mt-10 text-sm">
+      &copy; 2024 DevName. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Main JS -->
+  <script src="js/main.js"></script>
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 20) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+      // Back to top button
+      const backToTop = document.getElementById('backToTop');
+      if(window.scrollY > 300) {
+        backToTop.style.display = 'flex';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    // Mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    // Back to top
+    document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Lazy load images
+    document.addEventListener('DOMContentLoaded', function() {
+      const lazyImages = document.querySelectorAll('img.lazy');
+      if ('IntersectionObserver' in window) {
+        let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              let img = entry.target;
+              img.src = img.dataset.src || img.src;
+              img.classList.add('loaded');
+              lazyImageObserver.unobserve(img);
+            }
+          });
+        });
+        lazyImages.forEach(function(img) {
+          lazyImageObserver.observe(img);
+        });
+      } else {
+        // Fallback
+        lazyImages.forEach(function(img) {
+          img.src = img.dataset.src || img.src;
+          img.classList.add('loaded');
+        });
+      }
+    });
+    // Carousel logic
+    const carousel = document.getElementById('carousel');
+    const pictures = carousel.querySelectorAll('picture');
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    const caption = document.getElementById('carousel-caption');
+    let current = 0;
+    function showSlide(idx) {
+      pictures.forEach((pic, i) => {
+        if(i === idx) {
+          pic.classList.remove('hidden');
+          const img = pic.querySelector('img');
+          caption.textContent = img.getAttribute('data-caption') || img.alt;
+        } else {
+          pic.classList.add('hidden');
+        }
+      });
+    }
+    prevBtn.addEventListener('click', () => {
+      current = (current - 1 + pictures.length) % pictures.length;
+      showSlide(current);
+    });
+    nextBtn.addEventListener('click', () => {
+      current = (current + 1) % pictures.length;
+      showSlide(current);
+    });
+    // Keyboard navigation for carousel
+    carousel.addEventListener('keydown', function(e) {
+      if(e.key === 'ArrowLeft') prevBtn.click();
+      if(e.key === 'ArrowRight') nextBtn.click();
+    });
+    // Click to enlarge modal
+    let modal = null;
+    let modalImg = null;
+    let modalClose = null;
+    function openModal(src, alt) {
+      if(!modal) {
+        modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `<button class="modal-close" aria-label="Close image">&times;</button><img class="modal-img" alt="">`;
+        document.body.appendChild(modal);
+        modalImg = modal.querySelector('.modal-img');
+        modalClose = modal.querySelector('.modal-close');
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+      }
+      modalImg.src = src;
+      modalImg.alt = alt;
+      modal.classList.add('active');
+      modalImg.focus();
+    }
+    function closeModal() {
+      if(modal) modal.classList.remove('active');
+    }
+    pictures.forEach(pic => {
+      const img = pic.querySelector('img');
+      img.addEventListener('click', () => openModal(img.src, img.alt));
+      img.addEventListener('keydown', e => { if(e.key === 'Enter') openModal(img.src, img.alt); });
+    });
+    // Init first slide
+    showSlide(0);
+  </script>
+</body>
+</html> 

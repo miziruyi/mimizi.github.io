@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects - Explore my portfolio of web, app, and design projects.">
+    <title>Projects | Personal Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111827; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        .navbar-blur { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
+        .navbar-scrolled { background: rgba(255,255,255,0.95) !important; box-shadow: 0 2px 8px rgba(30,58,138,0.07); }
+        .link { transition: color 0.2s; }
+        .link:hover { color: #1E3A8A; }
+        .fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: none; } }
+        .tag { font-size: 0.95rem; font-weight: 600; border-radius: 9999px; padding: 0.25rem 1.1rem; margin-right: 0.5rem; margin-bottom: 0.5rem; display: inline-block; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .tag-active { background: #3B82F6; color: #fff; }
+        .tag-inactive { background: #F1F5F9; color: #1E3A8A; }
+        .project-card { border-radius: 8px; box-shadow: 0 2px 12px rgba(30,58,138,0.07); background: #fff; transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s, opacity 0.3s; }
+        .project-card:hover, .project-card:focus-within { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 32px rgba(30,58,138,0.13); z-index: 2; }
+        .project-img { aspect-ratio: 16/9; object-fit: cover; width: 100%; border-radius: 8px 8px 0 0; transition: transform 0.3s; }
+        .project-card:hover .project-img, .project-card:focus-within .project-img { transform: scale(1.05); }
+        .tech-badge { font-size: 0.8rem; background: #3B82F6; color: #fff; border-radius: 9999px; padding: 0.15rem 0.8rem; margin-right: 0.4rem; margin-bottom: 0.3rem; display: inline-block; }
+        .github-link { color: #4B5563; transition: color 0.2s, transform 0.4s; margin-left: auto; font-size: 1.3rem; }
+        .github-link:hover, .github-link:focus { color: #1E3A8A; transform: rotate(-18deg) scale(1.15); }
+        .view-details { color: #3B82F6; font-weight: 600; transition: color 0.2s; }
+        .view-details:hover, .view-details:focus { color: #1E3A8A; text-decoration: underline; }
+        .load-more-btn { background: #3B82F6; color: #fff; border-radius: 0.5rem; padding: 0.75rem 2.5rem; font-weight: 600; font-size: 1rem; transition: background 0.2s; }
+        .load-more-btn:hover, .load-more-btn:focus { background: #2563eb; }
+        .fade-out { opacity: 0; transform: scale(0.98); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+        .fade-in-anim { opacity: 1; transform: scale(1); transition: opacity 0.3s, transform 0.3s; }
+        .lazy { filter: blur(8px); transition: filter 0.4s; }
+        .lazy.loaded { filter: blur(0); }
+        @media (max-width: 1024px) { .project-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+        @media (max-width: 768px) { .project-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .main-title { font-size: 2rem; } .subtitle { font-size: 1.1rem; } }
+        .tag-bar-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .tag-bar-scroll::-webkit-scrollbar { display: none; }
+        .project-card:focus-within { outline: 2px solid #3B82F6; outline-offset: 2px; }
+    </style>
+</head>
+<body class="bg-white text-neutral-900">
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300" id="navbar">
+        <nav class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 text-primary-700 font-extrabold text-xl">
+                <img src="assets/logo.svg" alt="Logo" class="h-8 w-8" loading="lazy">
+                DevName
+            </a>
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex flex-1 justify-center gap-8 text-base font-medium">
+                <li><a href="index.html" class="link">Home</a></li>
+                <li><a href="about.html" class="link">About</a></li>
+                <li><a href="projects.html" class="link text-primary-700 font-bold border-b-2 border-primary-700">Projects</a></li>
+                <li><a href="blog.html" class="link">Blog</a></li>
+                <li><a href="contact.html" class="link">Contact</a></li>
+            </ul>
+            <!-- Hamburger -->
+            <button id="menu-btn" class="md:hidden text-2xl text-primary-700 focus:outline-none" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center gap-8 text-xl font-semibold hidden">
+            <button id="close-menu" class="absolute top-6 right-8 text-3xl text-primary-700" aria-label="Close menu"><i class="fas fa-times"></i></button>
+            <a href="index.html" class="link">Home</a>
+            <a href="about.html" class="link">About</a>
+            <a href="projects.html" class="link text-primary-700 font-bold border-b-2 border-primary-700">Projects</a>
+            <a href="blog.html" class="link">Blog</a>
+            <a href="contact.html" class="link">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Title -->
+    <section class="pt-32 pb-10 text-center bg-white">
+        <h1 class="main-title text-4xl md:text-5xl font-extrabold mb-4" style="color:#111827;">Projects</h1>
+        <p class="subtitle text-lg md:text-xl text-neutral-500 mb-8" style="color:#4B5563;">A curated selection of my work across web, app, and design.</p>
+    </section>
+
+    <!-- Filter Tags -->
+    <nav class="tag-bar-scroll flex gap-3 px-4 md:px-0 mb-12 justify-center items-center" aria-label="Project categories">
+        <button class="tag tag-active" data-tag="All" aria-pressed="true">All</button>
+        <button class="tag tag-inactive" data-tag="Web">Web</button>
+        <button class="tag tag-inactive" data-tag="App">App</button>
+        <button class="tag tag-inactive" data-tag="Design">Design</button>
+        <button class="tag tag-inactive" data-tag="OpenSource">Open Source</button>
+    </nav>
+
+    <!-- Projects Grid -->
+    <main class="container mx-auto px-4">
+        <section id="projects-list" class="grid project-grid gap-6 md:gap-8 mb-16" aria-live="polite">
+            <!-- Example Project Card 1 -->
+            <article class="project-card fade-in-anim" data-tags="Web,OpenSource" tabindex="0" aria-label="E-Commerce Platform">
+                <picture>
+                    <div class="img-placeholder skeleton absolute inset-0 z-10"></div>
+                    <source srcset="assets/project1-480w.webp 480w, assets/project1-800w.webp 800w" type="image/webp">
+                    <img src="assets/project1.jpg"
+                         srcset="assets/project1-480w.jpg 480w, assets/project1-800w.jpg 800w"
+                         sizes="(max-width: 640px) 100vw, 800px"
+                         alt="E-Commerce Platform Screenshot"
+                         class="project-img lazy"
+                         loading="lazy"
+                         onload="this.previousElementSibling && this.previousElementSibling.remove();this.classList.add('loaded');">
+                </picture>
+                <div class="p-6 flex flex-col h-full">
+                    <div class="flex items-center mb-2">
+                        <h2 class="text-lg font-bold" style="color:#111827; font-size:18px;">E-Commerce Platform</h2>
+                        <a href="https://github.com/yourname/ecommerce" class="github-link ml-auto" target="_blank" rel="noopener" aria-label="GitHub repository">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm mb-4" style="color:#4B5563; font-size:14px; line-height:1.6;">A modern e-commerce platform with authentication, product management, and payment integration. Built for scalability and performance.</p>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">MongoDB</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag tag-inactive" tabindex="0">Web</span>
+                        <span class="tag tag-inactive" tabindex="0">Open Source</span>
+                    </div>
+                    <a href="#" class="view-details mt-4 inline-block">View details</a>
+                </div>
+            </article>
+            <!-- Example Project Card 2 -->
+            <article class="project-card fade-in-anim" data-tags="App,Web" tabindex="0" aria-label="Task Management App">
+                <picture>
+                    <div class="img-placeholder skeleton absolute inset-0 z-10"></div>
+                    <source srcset="assets/project2-480w.webp 480w, assets/project2-800w.webp 800w" type="image/webp">
+                    <img src="assets/project2.jpg"
+                         srcset="assets/project2-480w.jpg 480w, assets/project2-800w.jpg 800w"
+                         sizes="(max-width: 640px) 100vw, 800px"
+                         alt="Task Management App Screenshot"
+                         class="project-img lazy"
+                         loading="lazy"
+                         onload="this.previousElementSibling && this.previousElementSibling.remove();this.classList.add('loaded');">
+                </picture>
+                <div class="p-6 flex flex-col h-full">
+                    <div class="flex items-center mb-2">
+                        <h2 class="text-lg font-bold" style="color:#111827; font-size:18px;">Task Management App</h2>
+                        <a href="https://github.com/yourname/taskapp" class="github-link ml-auto" target="_blank" rel="noopener" aria-label="GitHub repository">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm mb-4" style="color:#4B5563; font-size:14px; line-height:1.6;">A collaborative task management app with real-time updates, team collaboration, and progress tracking. Designed for productivity.</p>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="tech-badge">Vue.js</span>
+                        <span class="tech-badge">Firebase</span>
+                        <span class="tech-badge">Vuetify</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag tag-inactive" tabindex="0">App</span>
+                        <span class="tag tag-inactive" tabindex="0">Web</span>
+                    </div>
+                    <a href="#" class="view-details mt-4 inline-block">View details</a>
+                </div>
+            </article>
+            <!-- Example Project Card 3 -->
+            <article class="project-card fade-in-anim" data-tags="Design,Web" tabindex="0" aria-label="Portfolio Website">
+                <picture>
+                    <div class="img-placeholder skeleton absolute inset-0 z-10"></div>
+                    <source srcset="assets/project3-480w.webp 480w, assets/project3-800w.webp 800w" type="image/webp">
+                    <img src="assets/project3.jpg"
+                         srcset="assets/project3-480w.jpg 480w, assets/project3-800w.jpg 800w"
+                         sizes="(max-width: 640px) 100vw, 800px"
+                         alt="Portfolio Website Screenshot"
+                         class="project-img lazy"
+                         loading="lazy"
+                         onload="this.previousElementSibling && this.previousElementSibling.remove();this.classList.add('loaded');">
+                </picture>
+                <div class="p-6 flex flex-col h-full">
+                    <div class="flex items-center mb-2">
+                        <h2 class="text-lg font-bold" style="color:#111827; font-size:18px;">Portfolio Website</h2>
+                        <a href="https://github.com/yourname/portfolio" class="github-link ml-auto" target="_blank" rel="noopener" aria-label="GitHub repository">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm mb-4" style="color:#4B5563; font-size:14px; line-height:1.6;">A personal portfolio website to showcase projects, skills, and blog articles with a modern, responsive UI and smooth animations.</p>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">Tailwind</span>
+                        <span class="tech-badge">SEO</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag tag-inactive" tabindex="0">Design</span>
+                        <span class="tag tag-inactive" tabindex="0">Web</span>
+                    </div>
+                    <a href="#" class="view-details mt-4 inline-block">View details</a>
+                </div>
+            </article>
+            <!-- More projects can be added here -->
+        </section>
+        <!-- Load More Button -->
+        <div class="flex justify-center mt-8 mb-16">
+            <button class="load-more-btn" id="load-more" aria-label="Load more projects">Load More</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-900 text-white py-12 mt-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Contact Info -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Contact</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><i class="fas fa-envelope mr-2"></i> email@example.com</li>
+                    <li><i class="fas fa-phone mr-2"></i> +1 234 567 8901</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> City, Country</li>
+                </ul>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-neutral-300">
+                    <li><a href="index.html" class="hover:text-primary-400 transition">Home</a></li>
+                    <li><a href="about.html" class="hover:text-primary-400 transition">About</a></li>
+                    <li><a href="projects.html" class="hover:text-primary-400 transition">Projects</a></li>
+                    <li><a href="blog.html" class="hover:text-primary-400 transition">Blog</a></li>
+                </ul>
+            </div>
+            <!-- Social Media -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-primary-400 transition" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-neutral-400 mt-10 text-sm">
+            &copy; 2024 DevName. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 20) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+        // Mobile menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        // Lazy load images
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('img.lazy');
+            if ('IntersectionObserver' in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let img = entry.target;
+                            img.src = img.dataset.src || img.src;
+                            img.classList.add('loaded');
+                            lazyImageObserver.unobserve(img);
+                        }
+                    });
+                });
+                lazyImages.forEach(function(img) {
+                    lazyImageObserver.observe(img);
+                });
+            } else {
+                // Fallback
+                lazyImages.forEach(function(img) {
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                });
+            }
+        });
+        // Project filter logic
+        const tags = document.querySelectorAll('.tag-bar-scroll .tag');
+        const cards = document.querySelectorAll('.project-card');
+        let activeTag = 'All';
+        tags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                if (this.classList.contains('tag-active')) return;
+                tags.forEach(t => t.classList.remove('tag-active'));
+                tags.forEach(t => t.classList.add('tag-inactive'));
+                this.classList.add('tag-active');
+                this.classList.remove('tag-inactive');
+                activeTag = this.dataset.tag;
+                // Animate out
+                cards.forEach(card => {
+                    card.classList.remove('fade-in-anim');
+                    card.classList.add('fade-out');
+                });
+                setTimeout(() => {
+                    cards.forEach(card => {
+                        const tags = card.getAttribute('data-tags').split(',');
+                        if (activeTag === 'All' || tags.includes(activeTag)) {
+                            card.style.display = '';
+                            setTimeout(() => {
+                                card.classList.remove('fade-out');
+                                card.classList.add('fade-in-anim');
+                            }, 10);
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }, 250);
+            });
+        });
+        // Keyboard navigation for tags
+        tags.forEach(tag => {
+            tag.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    tag.click();
+                }
+            });
+        });
+        // Keyboard navigation for cards
+        cards.forEach(card => {
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const link = card.querySelector('.view-details');
+                    if (link) link.click();
+                }
+            });
+        });
+        // Load more button (demo, no real loading)
+        const loadMoreBtn = document.getElementById('load-more');
+        loadMoreBtn.addEventListener('click', function() {
+            loadMoreBtn.textContent = 'No more projects';
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        });
+    </script>
+</body>
+</html> 
